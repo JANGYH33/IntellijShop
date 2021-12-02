@@ -2,7 +2,7 @@ package com.shop.entity;
 
 
 import com.shop.dto.MemberFormDto;
-import com.shop.repository.CartRespository;
+import com.shop.repository.CartRepository;
 import com.shop.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CartTest {
 
     @Autowired
-    CartRespository cartRespository;
+    CartRepository cartRepository;
 
     @Autowired
     MemberRepository memberRepository;
@@ -52,12 +52,12 @@ public class CartTest {
 
         Cart cart = new Cart();
         cart.setMember(member);
-        cartRespository.save(cart);
+        cartRepository.save(cart);
 
         em.flush();
         em.clear();
 
-        Cart saveCart = cartRespository.findById(cart.getId())
+        Cart saveCart = cartRepository.findById(cart.getId())
                 .orElseThrow(EntityNotFoundException::new);
         assertEquals(saveCart.getMember().getId(), member.getId());
     }
